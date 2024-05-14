@@ -1,4 +1,4 @@
-const SignInPage = (props: Props) => {
+const SignInPage = () => {
 	return <div>SignInPage</div>
 }
 
