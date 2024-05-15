@@ -67,6 +67,7 @@ const Navigation = () => {
 										: 'ghost'
 								}
 								onClick={() => onClick(route.href)}
+								className='w-full justify-start'
 							>
 								{route.label}
 							</Button>
