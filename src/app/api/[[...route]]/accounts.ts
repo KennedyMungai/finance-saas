@@ -6,7 +6,7 @@ import { Hono } from 'hono'
 const app = new Hono().get('/', clerkMiddleware(), async (c) => {
 	const auth = getAuth(c)
 
-	if (!auth?.userId) c.json({ error: 'Unauthorized' }, 401)
+	if (!auth?.userId) return c.json({ error: 'Unauthorized' }, 401)
 
 	const data = await db
 		.select({ id: accounts.id, name: accounts.name })
