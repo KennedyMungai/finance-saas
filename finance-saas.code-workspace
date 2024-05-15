@@ -5,6 +5,6 @@
 		}
 	],
 	"settings": {
-		"cSpell.words": ["lucide", "nextjs", "trpc"]
+		"cSpell.words": ["Hono", "lucide", "nextjs", "trpc"]
 	}
 }
