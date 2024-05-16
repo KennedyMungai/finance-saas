@@ -3,7 +3,7 @@ import { createInsertSchema } from 'drizzle-zod'
 
 export const accounts = pgTable('accounts', {
 	id: uuid('id').defaultRandom().primaryKey(),
-	plaidId: uuid('plaid_id').defaultRandom().notNull(),
+	plaidId: uuid('plaid_id'),
 	name: text('name').notNull(),
 	userId: text('user_id').notNull()
 })
