@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import {
 	Form,
 	FormControl,
@@ -61,6 +62,9 @@ const AccountForm = ({
 						</FormItem>
 					)}
 				/>
+				<Button className='w-full' disabled={disabled}>
+					{id ? 'Save Changes' : 'Create Account'}
+				</Button>
 			</form>
 		</Form>
 	)
