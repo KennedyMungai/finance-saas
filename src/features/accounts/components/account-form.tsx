@@ -9,6 +9,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { insertAccountsSchema } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Trash } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -65,6 +66,17 @@ const AccountForm = ({
 				<Button className='w-full' disabled={disabled}>
 					{id ? 'Save Changes' : 'Create Account'}
 				</Button>
+				{!!id && (
+					<Button
+						className='w-full'
+						type='button'
+						disabled={disabled}
+						onClick={handleDelete}
+						variant={'outline'}
+					>
+						<Trash className='size-4 mr-3' /> Delete Account
+					</Button>
+				)}
 			</form>
 		</Form>
 	)
