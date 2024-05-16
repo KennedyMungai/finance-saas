@@ -17,8 +17,12 @@ const ErrorPage = ({ error, reset }: Props) => {
 	return (
 		<div className='h-screen bg-rose-400 flex flex-col items-center justify-center gap-4 font-bold text-3xl text-white'>
 			{error.message}
-			<Button variant={'outline'} asChild className='bg-transparent'>
-				<Link href={'/'}>Go Back</Link>
+			<Button
+				variant={'outline'}
+				onClick={() => reset()}
+				className='bg-transparent'
+			>
+				Try Again
 			</Button>
 		</div>
 	)
