@@ -14,7 +14,8 @@
 			"nextjs",
 			"tailwindcss",
 			"tanstack",
-			"trpc"
+			"trpc",
+			"zustand"
 		]
 	}
 }
