@@ -13,6 +13,7 @@ import {
 import {
 	ColumnDef,
 	ColumnFiltersState,
+	Row,
 	SortingState,
 	flexRender,
 	getCoreRowModel,
@@ -28,12 +29,16 @@ interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
 	data: TData[]
 	filterKey: string
+	onDelete: (rows: Row<TData>[]) => void
+	disabled?: boolean
 }
 
 export function DataTable<TData, TValue>({
 	columns,
 	data,
-	filterKey
+	filterKey,
+	onDelete,
+	disabled
 }: DataTableProps<TData, TValue>) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -78,6 +83,7 @@ export function DataTable<TData, TValue>({
 						size='sm'
 						variant={'outline'}
 						className='ml-auto font-normal text-xs'
+						disabled={disabled}
 					>
 						<Trash className='size-4 mr-2' />
 						Delete (
