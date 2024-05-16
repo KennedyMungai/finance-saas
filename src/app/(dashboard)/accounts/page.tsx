@@ -1,10 +1,10 @@
 'use client'
 
+import { DataTable } from '@/components/data-table'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useNewAccount } from '@/features/accounts/hooks/use-new-account'
 import { Plus } from 'lucide-react'
-import { DataTable } from '@/components/data-table'
 import { Payment, columns } from './columns'
 
 const data: Payment[] = [
