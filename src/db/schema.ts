@@ -1,4 +1,5 @@
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core'
+import { createInsertSchema } from 'drizzle-zod'
 
 export const accounts = pgTable('accounts', {
 	id: uuid('id').defaultRandom().primaryKey(),
@@ -6,3 +7,5 @@ export const accounts = pgTable('accounts', {
 	name: text('name').notNull(),
 	userId: text('user_id').notNull()
 })
+
+export const insertAccountsSchema = createInsertSchema(accounts)
