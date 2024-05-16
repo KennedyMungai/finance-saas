@@ -6,7 +6,7 @@ const WelcomeMsg = () => {
 	const { isLoaded, user } = useUser()
 
 	return (
-		<div className='space-y-2 mb-4'>
+		<div className='space-y-2 lg:mb-4 mb-24'>
 			<h2 className='text-2xl lg:text-4xl text-white font-medium'>
 				Welcome Back {isLoaded ? ', ' : ''}
 				{user?.firstName}👋
