@@ -37,7 +37,7 @@ const AccountForm = ({
 		defaultValues: defaultValues
 	})
 
-	const handleSubmit = (values: FormValues) => console.log({ values })
+	const handleSubmit = (values: FormValues) => onSubmit(values)
 
 	const handleDelete = () => onDelete?.()
 
