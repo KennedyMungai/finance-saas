@@ -37,7 +37,11 @@ const AccountsPage = () => {
 					</Button>
 				</CardHeader>
 				<CardContent>
-					<DataTable columns={columns} data={data} />
+					<DataTable
+						columns={columns}
+						data={data}
+						filterKey='email'
+					/>
 				</CardContent>
 			</Card>
 		</div>
