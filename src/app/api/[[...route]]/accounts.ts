@@ -8,10 +8,7 @@ import { HTTPException } from 'hono/http-exception'
 const app = new Hono().get('/', clerkMiddleware(), async (c) => {
 	const auth = getAuth(c)
 
-	if (!auth?.userId)
-		throw new HTTPException(401, {
-			res: c.json({ error: 'Unauthorized' }, 401)
-		})
+	if (!auth?.userId) return c.json({ error: 'Unauthorized' }, 401)
 
 	const data = await db
 		.select({ id: accounts.id, name: accounts.name })
