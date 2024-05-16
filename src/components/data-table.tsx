@@ -21,6 +21,7 @@ import {
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table'
+import { Trash } from 'lucide-react'
 import { useState } from 'react'
 
 interface DataTableProps<TData, TValue> {
@@ -72,6 +73,17 @@ export function DataTable<TData, TValue>({
 					}
 					className='max-w-sm'
 				/>
+				{table.getFilteredSelectedRowModel().rows.length > 0 && (
+					<Button
+						size='sm'
+						variant={'outline'}
+						className='ml-auto font-normal text-xs'
+					>
+						<Trash className='size-4 mr-2' />
+						Delete (
+						{table.getFilteredSelectedRowModel().rows.length})
+					</Button>
+				)}
 			</div>
 			<div className='rounded-md border'>
 				<Table>
