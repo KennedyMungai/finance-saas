@@ -19,7 +19,7 @@ type Props = {
 const Actions = ({ id }: Props) => {
 	const [ConfirmDelete, confirm] = useConfirm(
 		'Are you sure',
-		'You are about to delete this transaction'
+		'You are about to delete this category'
 	)
 
 	const deleteMutation = useDeleteCategory(id)
