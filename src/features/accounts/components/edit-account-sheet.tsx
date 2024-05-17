@@ -9,9 +9,9 @@ import { insertAccountsSchema } from '@/db/schema'
 import { useCreateAccount } from '@/features/accounts/api/use-create-account'
 import { useGetAccount } from '@/features/accounts/api/use-get-account'
 import { useOpenAccount } from '@/features/accounts/hooks/use-open-account'
+import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 import AccountForm from './account-form'
-import { Loader2 } from 'lucide-react'
 
 const formSchema = insertAccountsSchema.pick({ name: true })
 
