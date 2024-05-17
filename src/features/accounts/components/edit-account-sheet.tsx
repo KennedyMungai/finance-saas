@@ -37,9 +37,13 @@ const EditAccountSheet = () => {
 		<Sheet open={isOpen} onOpenChange={onClose}>
 			<SheetContent className='space-y-4'>
 				<SheetHeader>
-					<SheetTitle>New Account</SheetTitle>
+					<SheetTitle>
+						{id ? 'Edit Account' : 'New Account'}
+					</SheetTitle>
 					<SheetDescription>
-						Create a new account to track your transactions
+						{id
+							? 'Edit an existing account'
+							: 'Create a new account to track your transactions'}
 					</SheetDescription>
 				</SheetHeader>
 				{isLoading ? (
