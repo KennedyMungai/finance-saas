@@ -10,7 +10,7 @@ import { useNewAccount } from '@/features/accounts/hooks/use-new-account'
 import { Loader2, Plus } from 'lucide-react'
 import { columns } from './columns'
 
-const AccountsPage = () => {
+const CategoriesPage = () => {
 	const newAccount = useNewAccount()
 	const accountsQuery = useGetAccounts()
 	const deleteAccounts = useBulkDeleteAccounts()
@@ -41,7 +41,7 @@ const AccountsPage = () => {
 			<Card className='border-none drop-shadow-sm'>
 				<CardHeader className='flex gap-y-2 lg:flex-row lg:items-center lg:justify-between'>
 					<CardTitle className='text-xl line-clamp-1'>
-						Accounts
+						Categories
 					</CardTitle>
 					<Button size={'sm'} onClick={newAccount.onOpen}>
 						<Plus className='size-4 mr-2' />
@@ -65,4 +65,4 @@ const AccountsPage = () => {
 	)
 }
 
-export default AccountsPage
+export default CategoriesPage
