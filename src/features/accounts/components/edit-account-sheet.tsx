@@ -6,7 +6,7 @@ import {
 	SheetTitle
 } from '@/components/ui/sheet'
 import { insertAccountsSchema } from '@/db/schema'
-import { useCreateAccount } from '@/features/accounts/api/use-create-account'
+import { useDeleteAccount } from '@/features/accounts/api/use-delete-account'
 import { useEditAccount } from '@/features/accounts/api/use-edit-account'
 import { useGetAccount } from '@/features/accounts/api/use-get-account'
 import { useOpenAccount } from '@/features/accounts/hooks/use-open-account'
@@ -23,10 +23,11 @@ const EditAccountSheet = () => {
 
 	const accountsQuery = useGetAccount(id)
 	const editMutation = useEditAccount(id)
+	const deleteMutation = useDeleteAccount(id)
 
 	const isLoading = accountsQuery.isLoading
 
-	const isPending = editMutation.isPending
+	const isPending = editMutation.isPending || deleteMutation.isPending
 
 	const onSubmit = (values: FormValues) =>
 		editMutation.mutate(values, { onSuccess: () => onClose() })
@@ -58,6 +59,7 @@ const EditAccountSheet = () => {
 						onSubmit={onSubmit}
 						disabled={isPending}
 						defaultValues={defaultValues}
+						onDelete={deleteMutation.mutate}
 					/>
 				)}
 			</SheetContent>
