@@ -52,5 +52,9 @@ export const columns: ColumnDef<ResponseType>[] = [
 				</Button>
 			)
 		}
+	},
+	{
+		id: 'actions',
+		cell: ({ row }) => <Actions />
 	}
 ]
