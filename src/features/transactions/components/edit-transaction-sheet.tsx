@@ -120,6 +120,8 @@ const EditTransactionSheet = () => {
 							onCreateCategory={onCreateCategory}
 							accountOptions={accountOptions}
 							onCreateAccount={onCreateAccount}
+							onSubmit={onSubmit}
+							onDelete={onDelete}
 						/>
 					)}
 				</SheetContent>
