@@ -6,9 +6,9 @@ type Props = {
 }
 
 const AccountColumn = ({ account, accountId }: Props) => {
-	const { onOpen: onOpenAccount } = useOpenAccount()
+	const { onOpen } = useOpenAccount()
 
-	const onClick = () => onOpenAccount(accountId)
+	const onClick = () => onOpen(accountId)
 
 	return (
 		<div
