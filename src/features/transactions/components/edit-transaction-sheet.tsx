@@ -6,6 +6,10 @@ import {
 	SheetTitle
 } from '@/components/ui/sheet'
 import { insertTransactionsSchema } from '@/db/schema'
+import { useCreateAccount } from '@/features/accounts/api/use-create-account'
+import { useGetAccounts } from '@/features/accounts/api/use-get-accounts'
+import { useCreateCategory } from '@/features/categories/api/use-create-category'
+import { useGetCategories } from '@/features/categories/api/use-get-categories'
 import { useDeleteTransaction } from '@/features/transactions/api/use-delete-transaction'
 import { useEditTransaction } from '@/features/transactions/api/use-edit-transaction'
 import { useGetTransaction } from '@/features/transactions/api/use-get-transaction'
@@ -13,6 +17,7 @@ import { useOpenTransaction } from '@/features/transactions/hooks/use-open-trans
 import { useConfirm } from '@/hooks/use-confirm'
 import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
+import { useCreateTransaction } from '../api/use-create-transaction'
 import TransactionForm from './transaction-form'
 
 const formSchema = insertTransactionsSchema.omit({ id: true })
@@ -30,6 +35,23 @@ const EditTransactionSheet = () => {
 	const transactionQuery = useGetTransaction(id)
 	const editMutation = useEditTransaction(id)
 	const deleteMutation = useDeleteTransaction(id)
+
+	const createMutation = useCreateTransaction()
+	const categoryMutation = useCreateCategory()
+	const categoryQuery = useGetCategories()
+	const onCreateCategory = (name: string) => categoryMutation.mutate({ name })
+	const categoryOptions = (categoryQuery.data ?? []).map((category) => ({
+		label: category.name,
+		value: category.id
+	}))
+
+	const accountMutation = useCreateAccount()
+	const accountsQuery = useGetAccounts()
+	const onCreateAccount = (name: string) => accountMutation.mutate({ name })
+	const accountOptions = (accountsQuery.data ?? []).map((account) => ({
+		label: account.name,
+		value: account.id
+	}))
 
 	const isLoading = transactionQuery.isLoading
 
