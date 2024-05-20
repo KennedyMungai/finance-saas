@@ -10,10 +10,10 @@ import { useDeleteAccount } from '@/features/accounts/api/use-delete-account'
 import { useEditAccount } from '@/features/accounts/api/use-edit-account'
 import { useGetAccount } from '@/features/accounts/api/use-get-account'
 import { useOpenAccount } from '@/features/accounts/hooks/use-open-account'
+import { useConfirm } from '@/hooks/use-confirm'
 import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 import TransactionForm from './transaction-form'
-import { useConfirm } from '@/hooks/use-confirm'
 
 const formSchema = insertAccountsSchema.pick({ name: true })
 
@@ -55,12 +55,12 @@ const EditTransactionSheet = () => {
 				<SheetContent className='space-y-4'>
 					<SheetHeader>
 						<SheetTitle>
-							{id ? 'Edit Account' : 'New Account'}
+							{id ? 'Edit Transaction' : 'New Transaction'}
 						</SheetTitle>
 						<SheetDescription>
 							{id
-								? 'Edit an existing account'
-								: 'Create a new account to track your transactions'}
+								? 'Edit an existing transaction'
+								: 'Create a new transaction'}
 						</SheetDescription>
 					</SheetHeader>
 					{isLoading ? (
