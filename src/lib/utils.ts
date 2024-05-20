@@ -15,4 +15,4 @@ export const formatCurrency = (value: number) =>
 		style: 'currency',
 		currency: 'USD',
 		minimumFractionDigits: 2
-	}).format(convertAmountFromMilliunits(value))
+	}).format(value)
