@@ -11,6 +11,7 @@ import { ArrowUpDown } from 'lucide-react'
 import Actions from './actions'
 import { Badge } from '@/components/ui/badge'
 import AccountColumn from './account-column'
+import CategoryColumn from './category-column'
 
 export type ResponseType = InferResponseType<
 	typeof client.api.transactions.$get,
@@ -79,7 +80,13 @@ export const columns: ColumnDef<ResponseType>[] = [
 			)
 		},
 		cell: ({ row }) => {
-			return <span>{row.original.category}</span>
+			return (
+				<CategoryColumn
+					category={row.getValue('category')}
+					id={row.original.id}
+					categoryId={row.getValue('categoryId')}
+				/>
+			)
 		}
 	},
 	{
