@@ -10,6 +10,7 @@ import { InferResponseType } from 'hono'
 import { ArrowUpDown } from 'lucide-react'
 import Actions from './actions'
 import { Badge } from '@/components/ui/badge'
+import AccountColumn from './account-column'
 
 export type ResponseType = InferResponseType<
 	typeof client.api.transactions.$get,
@@ -141,7 +142,12 @@ export const columns: ColumnDef<ResponseType>[] = [
 			)
 		},
 		cell: ({ row }) => {
-			return <span>{row.original.account}</span>
+			return (
+				<AccountColumn
+					account={row.original.account}
+					accountId={row.original.accountId}
+				/>
+			)
 		}
 	},
 	{
