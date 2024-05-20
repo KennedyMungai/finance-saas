@@ -1,12 +1,11 @@
 import { useOpenAccount } from '@/features/accounts/hooks/use-open-account'
 
 type Props = {
-	id: string
 	account: string
 	accountId: string
 }
 
-const AccountColumn = ({ account, accountId, id }: Props) => {
+const AccountColumn = ({ account, accountId }: Props) => {
 	const { onOpen: onOpenAccount } = useOpenAccount()
 
 	const onClick = () => onOpenAccount(accountId)
