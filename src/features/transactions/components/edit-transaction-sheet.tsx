@@ -5,41 +5,41 @@ import {
 	SheetHeader,
 	SheetTitle
 } from '@/components/ui/sheet'
-import { insertAccountsSchema } from '@/db/schema'
-import { useDeleteAccount } from '@/features/accounts/api/use-delete-account'
-import { useEditAccount } from '@/features/accounts/api/use-edit-account'
-import { useGetAccount } from '@/features/accounts/api/use-get-account'
-import { useOpenAccount } from '@/features/accounts/hooks/use-open-account'
+import { insertTransactionsSchema } from '@/db/schema'
+import { useDeleteTransaction } from '@/features/transactions/api/use-delete-transaction'
+import { useEditTransaction } from '@/features/transactions/api/use-edit-transaction'
+import { useGetTransaction } from '@/features/transactions/api/use-get-transaction'
+import { useOpenTransaction } from '@/features/transactions/hooks/use-open-transaction'
 import { useConfirm } from '@/hooks/use-confirm'
 import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 import TransactionForm from './transaction-form'
 
-const formSchema = insertAccountsSchema.pick({ name: true })
+const formSchema = insertTransactionsSchema.omit({ id: true })
 
 type FormValues = z.infer<typeof formSchema>
 
 const EditTransactionSheet = () => {
-	const { isOpen, onClose, id } = useOpenAccount()
+	const { isOpen, onClose, id } = useOpenTransaction()
 
 	const [ConfirmDelete, confirm] = useConfirm(
 		'Are you sure?',
-		'You are about to delete this account'
+		'You are about to delete this transaction'
 	)
 
-	const accountsQuery = useGetAccount(id)
-	const editMutation = useEditAccount(id)
-	const deleteMutation = useDeleteAccount(id)
+	const transactionsQuery = useGetTransaction(id)
+	const editMutation = useEditTransaction(id)
+	const deleteMutation = useDeleteTransaction(id)
 
-	const isLoading = accountsQuery.isLoading
+	const isLoading = transactionsQuery.isLoading
 
 	const isPending = editMutation.isPending || deleteMutation.isPending
 
 	const onSubmit = (values: FormValues) =>
 		editMutation.mutate(values, { onSuccess: () => onClose() })
 
-	const defaultValues = accountsQuery.data
-		? { name: accountsQuery.data.name }
+	const defaultValues = transactionsQuery.data
+		? { name: transactionsQuery.data.name }
 		: { name: '' }
 
 	const onDelete = async () => {
