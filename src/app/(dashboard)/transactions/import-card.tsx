@@ -61,7 +61,11 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
 						<Button size={'sm'} onClick={onCancel}>
 							Cancel
 						</Button>
-						<Button size={'sm'} onClick={onCancel}>
+						<Button
+							size={'sm'}
+							onClick={() => {}}
+							disabled={progress < requiredOptions.length}
+						>
 							Continue ({progress}/{requiredOptions.length})
 						</Button>
 					</div>
