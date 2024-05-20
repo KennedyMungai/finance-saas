@@ -14,6 +14,7 @@ import { useConfirm } from '@/hooks/use-confirm'
 import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 import TransactionForm from './transaction-form'
+import { notExists } from 'drizzle-orm'
 
 const formSchema = insertTransactionsSchema.omit({ id: true })
 
@@ -27,20 +28,36 @@ const EditTransactionSheet = () => {
 		'You are about to delete this transaction'
 	)
 
-	const transactionsQuery = useGetTransaction(id)
+	const transactionQuery = useGetTransaction(id)
 	const editMutation = useEditTransaction(id)
 	const deleteMutation = useDeleteTransaction(id)
 
-	const isLoading = transactionsQuery.isLoading
+	const isLoading = transactionQuery.isLoading
 
 	const isPending = editMutation.isPending || deleteMutation.isPending
 
 	const onSubmit = (values: FormValues) =>
 		editMutation.mutate(values, { onSuccess: () => onClose() })
 
-	const defaultValues = transactionsQuery.data
-		? { name: transactionsQuery.data.name }
-		: { name: '' }
+	const defaultValues = transactionQuery.data
+		? {
+				accountId: transactionQuery.data.accountId,
+				categoryId: transactionQuery.data.categoryId,
+				amount: transactionQuery.data.amount.toString(),
+				date: transactionQuery.data.date
+					? new Date(transactionQuery.data.date)
+					: new Date(),
+				payee: transactionQuery.data.payee,
+				notes: transactionQuery.data.notes
+		  }
+		: {
+				accountId: '',
+				categoryId: '',
+				amount: '',
+				date: '',
+				payee: '',
+				notes: ''
+		  }
 
 	const onDelete = async () => {
 		const ok = await confirm()
