@@ -18,7 +18,7 @@ type Props = {
 	onChange: (columnIndex: number, value: string | null) => void
 }
 
-const options = ['amount', 'payee', 'notes', 'date']
+const options = ['amount', 'payee', 'date']
 
 const TableHeadSelect = ({ columnIndex, onChange, selectedColumns }: Props) => {
 	const currentSelection = selectedColumns[`column_${columnIndex}`]
