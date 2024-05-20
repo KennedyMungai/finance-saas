@@ -11,6 +11,7 @@ import { Loader2, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { columns } from './columns'
 import UploadButton from './upload-button'
+import ImportCard from './import-card'
 
 enum VARIANTS {
 	LIST = 'LIST',
@@ -25,6 +26,7 @@ const INITIAL_IMPORT_RESULTS = {
 
 const TransactionsPage = () => {
 	const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST)
+	const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS)
 
 	const newTransaction = useNewTransaction()
 	const transactionsQuery = useGetTransactions()
@@ -34,6 +36,18 @@ const TransactionsPage = () => {
 
 	const isDisabled =
 		transactionsQuery.isLoading || deleteTransactions.isPending
+
+	const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+		setVariant(VARIANTS.IMPORT)
+		setImportResults(results)
+
+		console.log(results)
+	}
+
+	const onCancelImport = () => {
+		setImportResults(INITIAL_IMPORT_RESULTS)
+		setVariant(VARIANTS.LIST)
+	}
 
 	if (transactionsQuery.isLoading) {
 		return (
@@ -55,7 +69,11 @@ const TransactionsPage = () => {
 	if (variant === VARIANTS.IMPORT) {
 		return (
 			<>
-				<div>This is a screen used for imports</div>
+				<ImportCard
+					data={importResults.data}
+					onCancel={onCancelImport}
+					onSubmit={() => {}}
+				/>
 			</>
 		)
 	}
@@ -72,7 +90,7 @@ const TransactionsPage = () => {
 							<Plus className='size-4 mr-2' />
 							Add new
 						</Button>
-						<UploadButton onUpload={() => {}} />
+						<UploadButton onUpload={onUpload} />
 					</div>
 				</CardHeader>
 				<CardContent>
