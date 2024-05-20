@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { insertTransactionsSchema } from '@/db/schema'
+import { convertAmountToMilliunits } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Trash } from 'lucide-react'
 import { useForm } from 'react-hook-form'
@@ -60,8 +61,13 @@ const TransactionForm = ({
 	})
 
 	const handleSubmit = (values: FormValues) => {
-		// onSubmit(values)
-		console.log({ values })
+		const amount = parseFloat(values.amount)
+		const amountInMilliunits = convertAmountToMilliunits(amount)
+
+		onSubmit({
+			...values,
+			amount: amountInMilliunits
+		})
 	}
 
 	const handleDelete = () => onDelete?.()
