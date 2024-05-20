@@ -191,7 +191,7 @@ const TransactionForm = ({
 						onClick={handleDelete}
 						variant={'outline'}
 					>
-						<Trash className='size-4 mr-3' /> Delete Account
+						<Trash className='size-4 mr-3' /> Delete Transaction
 					</Button>
 				)}
 			</form>
