@@ -14,7 +14,6 @@ import { useConfirm } from '@/hooks/use-confirm'
 import { Loader2 } from 'lucide-react'
 import { z } from 'zod'
 import TransactionForm from './transaction-form'
-import { notExists } from 'drizzle-orm'
 
 const formSchema = insertTransactionsSchema.omit({ id: true })
 
