@@ -53,9 +53,17 @@ const EditTransactionSheet = () => {
 		value: account.id
 	}))
 
-	const isLoading = transactionQuery.isLoading
+	const isLoading =
+		transactionQuery.isLoading ||
+		categoryQuery.isLoading ||
+		accountsQuery.isLoading
 
-	const isPending = editMutation.isPending || deleteMutation.isPending
+	const isPending =
+		editMutation.isPending ||
+		deleteMutation.isPending ||
+		transactionQuery.isLoading ||
+		categoryMutation.isPending ||
+		accountMutation.isPending
 
 	const onSubmit = (values: FormValues) =>
 		editMutation.mutate(values, { onSuccess: () => onClose() })
@@ -71,14 +79,7 @@ const EditTransactionSheet = () => {
 				payee: transactionQuery.data.payee,
 				notes: transactionQuery.data.notes
 		  }
-		: {
-				accountId: '',
-				categoryId: '',
-				amount: '',
-				date: '',
-				payee: '',
-				notes: ''
-		  }
+		: undefined
 
 	const onDelete = async () => {
 		const ok = await confirm()
@@ -108,10 +109,13 @@ const EditTransactionSheet = () => {
 					) : (
 						<TransactionForm
 							id={id}
+							defaultValues={defaultValues}
 							onSubmit={onSubmit}
 							disabled={isPending}
-							defaultValues={defaultValues}
-							onDelete={onDelete}
+							categoryOptions={categoryOptions}
+							onCreateCategory={onCreateCategory}
+							accountOptions={accountOptions}
+							onCreateAccount={onCreateAccount}
 						/>
 					)}
 				</SheetContent>
