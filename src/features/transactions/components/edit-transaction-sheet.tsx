@@ -79,7 +79,14 @@ const EditTransactionSheet = () => {
 				payee: transactionQuery.data.payee,
 				notes: transactionQuery.data.notes
 		  }
-		: undefined
+		: {
+				accountId: '',
+				categoryId: '',
+				amount: '',
+				date: new Date(),
+				payee: '',
+				notes: ''
+		  }
 
 	const onDelete = async () => {
 		const ok = await confirm()
@@ -108,9 +115,6 @@ const EditTransactionSheet = () => {
 						</div>
 					) : (
 						<TransactionForm
-							id={id}
-							defaultValues={defaultValues}
-							onSubmit={onSubmit}
 							disabled={isPending}
 							categoryOptions={categoryOptions}
 							onCreateCategory={onCreateCategory}
