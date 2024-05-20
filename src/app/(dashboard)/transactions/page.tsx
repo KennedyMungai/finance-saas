@@ -8,9 +8,24 @@ import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions'
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction'
 import { Loader2, Plus } from 'lucide-react'
+import { useState } from 'react'
 import { columns } from './columns'
+import UploadButton from './upload-button'
+
+enum VARIANTS {
+	LIST = 'LIST',
+	IMPORT = 'IMPORT	'
+}
+
+const INITIAL_IMPORT_RESULTS = {
+	data: [],
+	errors: [],
+	meta: {}
+}
 
 const TransactionsPage = () => {
+	const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST)
+
 	const newTransaction = useNewTransaction()
 	const transactionsQuery = useGetTransactions()
 	const deleteTransactions = useBulkDeleteTransactions()
@@ -37,6 +52,14 @@ const TransactionsPage = () => {
 		)
 	}
 
+	if (variant === VARIANTS.IMPORT) {
+		return (
+			<>
+				<div>This is a screen used for imports</div>
+			</>
+		)
+	}
+
 	return (
 		<div className='max-w-screen-2xl mx-auto w-full pb-10 -mt-24'>
 			<Card className='border-none drop-shadow-sm'>
@@ -44,10 +67,13 @@ const TransactionsPage = () => {
 					<CardTitle className='text-xl line-clamp-1'>
 						Transaction History
 					</CardTitle>
-					<Button size={'sm'} onClick={newTransaction.onOpen}>
-						<Plus className='size-4 mr-2' />
-						Add new
-					</Button>
+					<div className='flex gap-4 items-center'>
+						<Button size={'sm'} onClick={newTransaction.onOpen}>
+							<Plus className='size-4 mr-2' />
+							Add new
+						</Button>
+						<UploadButton onUpload={() => {}} />
+					</div>
 				</CardHeader>
 				<CardContent>
 					<DataTable
