@@ -48,6 +48,8 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
 		})
 	}
 
+	const progress = Object.values(selectedColumns).filter(Boolean).length
+
 	return (
 		<div className='max-w-screen-2xl mx-auto w-full pb-10 -mt-24'>
 			<Card className='border-none drop-shadow-sm'>
@@ -58,6 +60,9 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
 					<div className='flex gap-4 items-center'>
 						<Button size={'sm'} onClick={onCancel}>
 							Cancel
+						</Button>
+						<Button size={'sm'} onClick={onCancel}>
+							Continue ({progress}/{requiredOptions.length})
 						</Button>
 					</div>
 				</CardHeader>
