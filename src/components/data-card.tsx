@@ -1,15 +1,15 @@
-import { IconType } from 'react-icons/lib'
-import { VariantProps, cva } from 'class-variance-authority'
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn, formatCurrency, formatPercentage } from '@/lib/utils'
+import { VariantProps, cva } from 'class-variance-authority'
+import { IconType } from 'react-icons/lib'
+import { CountUp } from './count-up'
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle
 } from './ui/card'
-import { CountUp } from './count-up'
 
 const boxVariant = cva('rounded-md p-3 shrink-0', {
 	variants: {
@@ -99,3 +99,19 @@ const DataCard = ({
 }
 
 export default DataCard
+
+export const DataCardLoading = () => (
+	<Card className='border-none drop-shadow-sm h-[192px]'>
+		<CardHeader className='flex flex-row items-center justify-between gap-x-4'>
+			<div className='space-y-2'>
+				<Skeleton className='h-6 w-24' />
+				<Skeleton className='h-6 w-40' />
+			</div>
+			<Skeleton className='size-12' />
+		</CardHeader>
+		<CardContent>
+			<Skeleton className='shrink-0 h-10 w-24 mb-2' />
+			<Skeleton className='shrink-0 h-4 w-40' />
+		</CardContent>
+	</Card>
+)
