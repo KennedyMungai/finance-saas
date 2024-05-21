@@ -156,13 +156,16 @@ const app = new Hono().get(
 		const days = fillMissingDays(activeDays, startDate, endDate)
 
 		return c.json({
-			currentPeriod,
-			lastPeriod,
-			incomeChange,
-			expensesChange,
-			remainingChange,
-			finalCategories,
-			days
+			data: {
+				remainingAmount: currentPeriod.remaining,
+				remainingChange,
+				incomeAmount: currentPeriod.income,
+				incomeChange,
+				expensesAmount: currentPeriod.expenses,
+				expensesChange,
+				categories: finalCategories,
+				days
+			}
 		})
 	}
 )
