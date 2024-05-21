@@ -5,14 +5,17 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { transactions as transactionsSchema } from '@/db/schema'
+import { useSelectAccount } from '@/features/accounts/hooks/use-select-account'
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions'
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions'
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction'
 import { Loader2, Plus } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { columns } from './columns'
 import ImportCard from './import-card'
 import UploadButton from './upload-button'
+import { useBulkCreateTransactions } from '@/features/transactions/api/use-bulk-create-transactions'
 
 enum VARIANTS {
 	LIST = 'LIST',
@@ -26,11 +29,14 @@ const INITIAL_IMPORT_RESULTS = {
 }
 
 const TransactionsPage = () => {
+	const [AccountDialog, confirm] = useSelectAccount()
+
 	const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST)
 	const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS)
 
 	const newTransaction = useNewTransaction()
 	const transactionsQuery = useGetTransactions()
+	const createTransactions = useBulkCreateTransactions()
 	const deleteTransactions = useBulkDeleteTransactions()
 
 	const transactions = transactionsQuery.data ?? []
@@ -52,7 +58,19 @@ const TransactionsPage = () => {
 
 	const onSubmitImport = async (
 		values: (typeof transactionsSchema.$inferInsert)[]
-	) => {}
+	) => {
+		const accountId = await confirm()
+
+		if (!accountId)
+			return toast.error('Please select an account to continue')
+
+		const data = values.map((value) => ({
+			...value,
+			accountId: accountId as string
+		}))
+
+		createTransactions.mutate(data, { onSuccess: () => onCancelImport() })
+	}
 
 	if (transactionsQuery.isLoading) {
 		return (
@@ -74,6 +92,7 @@ const TransactionsPage = () => {
 	if (variant === VARIANTS.IMPORT) {
 		return (
 			<>
+				<AccountDialog />
 				<ImportCard
 					data={importResults.data}
 					onCancel={onCancelImport}
