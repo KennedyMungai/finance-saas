@@ -1,6 +1,6 @@
 import { db } from '@/db/drizzle'
 import { accounts, categories, transactions } from '@/db/schema'
-import { calculatePercentageChange } from '@/lib/utils'
+import { calculatePercentageChange, fillMissingDays } from '@/lib/utils'
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
 import { zValidator } from '@hono/zod-validator'
 import { differenceInDays, parse, subDays } from 'date-fns'
@@ -153,6 +153,8 @@ const app = new Hono().get(
 			.groupBy(transactions.date)
 			.orderBy(transactions.date)
 
+		const days = fillMissingDays(activeDays, startDate, endDate)
+
 		return c.json({
 			currentPeriod,
 			lastPeriod,
@@ -160,7 +162,7 @@ const app = new Hono().get(
 			expensesChange,
 			remainingChange,
 			finalCategories,
-			activeDays
+			days
 		})
 	}
 )
