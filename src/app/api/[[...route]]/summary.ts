@@ -1,5 +1,6 @@
 import { db } from '@/db/drizzle'
 import { accounts, transactions } from '@/db/schema'
+import { calculatePercentageChange } from '@/lib/utils'
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
 import { zValidator } from '@hono/zod-validator'
 import { differenceInDays, parse, subDays } from 'date-fns'
@@ -77,7 +78,28 @@ const app = new Hono().get(
 			endDate
 		)
 
-		return c.json({ currentPeriod, lastPeriod })
+		const incomeChange = calculatePercentageChange(
+			currentPeriod.income,
+			lastPeriod.income
+		)
+
+		const expensesChange = calculatePercentageChange(
+			currentPeriod.expenses,
+			lastPeriod.expenses
+		)
+
+		const remainingChange = calculatePercentageChange(
+			currentPeriod.remaining,
+			lastPeriod.remaining
+		)
+
+		return c.json({
+			currentPeriod,
+			lastPeriod,
+			incomeChange,
+			expensesChange,
+			remainingChange
+		})
 	}
 )
 
