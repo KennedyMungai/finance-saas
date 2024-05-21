@@ -12,10 +12,10 @@ import { useCreateAccount } from '@/features/accounts/api/use-create-account'
 import { useGetAccounts } from '@/features/accounts/api/use-get-accounts'
 import { useRef, useState } from 'react'
 
-export const useSelectAccount = (
-	title: string,
-	message: string
-): [() => JSX.Element, () => Promise<unknown>] => {
+export const useSelectAccount = (): [
+	() => JSX.Element,
+	() => Promise<unknown>
+] => {
 	const accountsQuery = useGetAccounts()
 	const accountMutation = useCreateAccount()
 
@@ -49,7 +49,7 @@ export const useSelectAccount = (
 		handleClose()
 	}
 
-	const ConfirmationDialog = () => (
+	const AccountDialog = () => (
 		<Dialog open={promise !== null}>
 			<DialogContent>
 				<DialogHeader>
@@ -77,5 +77,5 @@ export const useSelectAccount = (
 		</Dialog>
 	)
 
-	return [ConfirmationDialog, confirm]
+	return [AccountDialog, confirm]
 }
