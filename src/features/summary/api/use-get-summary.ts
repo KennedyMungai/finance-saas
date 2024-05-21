@@ -3,7 +3,7 @@ import { convertAmountFromMilliunits } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 
-export const useGetTransactions = () => {
+export const useGetSummary = () => {
 	const params = useSearchParams()
 	const from = params.get('from') || ''
 	const to = params.get('to') || ''
