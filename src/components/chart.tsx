@@ -1,10 +1,8 @@
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle
 } from '@/components/ui/card'
 import { FileSearch } from 'lucide-react'
 import AreaVariant from './area-variant'
