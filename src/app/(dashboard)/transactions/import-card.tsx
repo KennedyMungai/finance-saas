@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { convertAmountToMilliunits } from '@/lib/utils'
 import { useState } from 'react'
 import ImportTable from './import-table'
+import { format, parse } from 'date-fns'
 
 type Props = {
 	data: string[][]
@@ -76,7 +78,23 @@ const ImportCard = ({ data, onCancel, onSubmit }: Props) => {
 				.filter((row) => row.length > 0)
 		}
 
-		console.log({ mappedData })
+		const arrayOfData = mappedData.body.map((row) =>
+			row.reduce((acc: any, cell, index) => {
+				const header = mappedData.headers[index]
+
+				if (header !== null) acc[header] = cell
+
+				return acc
+			}, {})
+		)
+
+		const formattedData = arrayOfData.map((item) => ({
+			...item,
+			amount: convertAmountToMilliunits(parseFloat(item.amount)),
+			date: format(parse(item.date, dateFormat, new Date()), outputFormat)
+		}))
+
+		onSubmit(formattedData)
 	}
 
 	return (
