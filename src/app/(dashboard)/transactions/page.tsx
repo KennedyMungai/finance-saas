@@ -4,14 +4,15 @@ import { DataTable } from '@/components/data-table'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { transactions as transactionsSchema } from '@/db/schema'
 import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions'
 import { useGetTransactions } from '@/features/transactions/api/use-get-transactions'
 import { useNewTransaction } from '@/features/transactions/hooks/use-new-transaction'
 import { Loader2, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { columns } from './columns'
-import UploadButton from './upload-button'
 import ImportCard from './import-card'
+import UploadButton from './upload-button'
 
 enum VARIANTS {
 	LIST = 'LIST',
@@ -49,6 +50,10 @@ const TransactionsPage = () => {
 		setVariant(VARIANTS.LIST)
 	}
 
+	const onSubmitImport = async (
+		values: (typeof transactionsSchema.$inferInsert)[]
+	) => {}
+
 	if (transactionsQuery.isLoading) {
 		return (
 			<div className='max-w-screen-2xl mx-auto w-full pb-10 -mt-24'>
@@ -72,7 +77,7 @@ const TransactionsPage = () => {
 				<ImportCard
 					data={importResults.data}
 					onCancel={onCancelImport}
-					onSubmit={() => {}}
+					onSubmit={onSubmitImport}
 				/>
 			</>
 		)
