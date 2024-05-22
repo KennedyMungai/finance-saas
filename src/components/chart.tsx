@@ -1,21 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { AreaChart, BarChart, FileSearch, LineChart } from 'lucide-react'
-import AreaVariant from './area-variant'
-import BarVariant from './bar-variant'
-import LineVariant from './line-variant'
-import { useState } from 'react'
 import {
 	Select,
 	SelectContent,
-	SelectTrigger,
-	SelectGroup,
 	SelectItem,
-	SelectLabel,
-	SelectScrollDownButton,
-	SelectScrollUpButton,
-	SelectSeparator,
+	SelectTrigger,
 	SelectValue
 } from '@/components/ui/select'
+import { AreaChart, BarChart, FileSearch, LineChart } from 'lucide-react'
+import { useState } from 'react'
+import AreaVariant from './area-variant'
+import BarVariant from './bar-variant'
+import LineVariant from './line-variant'
 
 type Props = {
 	data?: {
