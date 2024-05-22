@@ -69,7 +69,7 @@ const PieVariant = ({ data }: Props) => {
 					dataKey='value'
 					labelLine={false}
 				>
-					{data.map((_entry, index) => (
+					{data?.map((_entry, index) => (
 						<Cell
 							key={`cell_${index}`}
 							fill={COLORS[index % COLORS.length]}
