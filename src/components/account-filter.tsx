@@ -44,7 +44,11 @@ const AccountFilter = () => {
 	}
 
 	return (
-		<Select value={accountId} onValueChange={() => {}} disabled={false}>
+		<Select
+			value={accountId}
+			onValueChange={onChange}
+			disabled={isLoadingAccounts}
+		>
 			<SelectTrigger className='lg:w-auto w-full h-9 rounded-md px-3 font-normal bg-y-10 hover:bg-y-20 hover:text-white border-none focus:ring-offset-0 focus:ring-transparent outline-none text-white focus:bg-white/30 transition'>
 				<SelectValue placeholder='Select An Account' />
 			</SelectTrigger>
