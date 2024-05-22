@@ -7,6 +7,7 @@ import {
 	ResponsiveContainer,
 	CartesianGrid
 } from 'recharts'
+import CustomTooltip from './custom-tooltip'
 
 type Props = {
 	data?: {
@@ -57,6 +58,7 @@ const AreaVariant = ({ data }: Props) => {
 					}}
 					tickMargin={16}
 				/>
+				<Tooltip content={<CustomTooltip />} />
 				<Area
 					type='monotone'
 					dataKey='income'
