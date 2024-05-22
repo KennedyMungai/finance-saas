@@ -8,6 +8,7 @@ import {
 	SelectValue
 } from '@/components/ui/select'
 import { useGetAccounts } from '@/features/accounts/api/use-get-accounts'
+import { useGetSummary } from '@/features/summary/api/use-get-summary'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import qs from 'query-string'
 
@@ -22,6 +23,7 @@ const AccountFilter = () => {
 	const to = params.get('to') || ''
 
 	const { data: accounts, isLoading: isLoadingAccounts } = useGetAccounts()
+	const { isLoading: isSummaryLoading } = useGetSummary()
 
 	const onChange = (newValue: string) => {
 		const query = {
@@ -47,7 +49,7 @@ const AccountFilter = () => {
 		<Select
 			value={accountId}
 			onValueChange={onChange}
-			disabled={isLoadingAccounts}
+			disabled={isLoadingAccounts || isSummaryLoading}
 		>
 			<SelectTrigger className='lg:w-auto w-full h-9 rounded-md px-3 font-normal bg-y-10 hover:bg-y-20 hover:text-white border-none focus:ring-offset-0 focus:ring-transparent outline-none text-white focus:bg-white/30 transition'>
 				<SelectValue placeholder='Select An Account' />
